@@ -6,7 +6,8 @@ const useDucks = () => {
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(true);
 
-  useEffect(() => {
+  const fetchData = () => {
+    setIsPending(true);
     fetchDucks()
       .then((data) => {
         setData(data);
@@ -17,12 +18,17 @@ const useDucks = () => {
         setIsPending(false);
         console.log(err);
       });
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
   return {
     data,
     error,
     isPending,
+    refetch: fetchData, // Function to trigger refetch
   };
 };
 
