@@ -7,7 +7,8 @@ const SearchBar = () => {
     //set urlparams to search
     const urlParams = new URLSearchParams();
     urlParams.append("search", search);
-    window.location.search = urlParams.toString();
+    window.history.pushState({}, "", `?${urlParams.toString()}`);
+    window.dispatchEvent(new Event("urlChange"));
   };
   return (
     <form onSubmit={handleSearch}>
